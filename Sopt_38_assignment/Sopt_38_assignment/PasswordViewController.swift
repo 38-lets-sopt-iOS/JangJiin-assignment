@@ -5,27 +5,14 @@
 //  Created by 장지인 on 4/23/26.
 //
 import UIKit
-import Foundation
-import SnapKit
 
-class CustomSecureTextField: UITextField {
-    override func becomeFirstResponder() -> Bool {
-        let result = super.becomeFirstResponder()
-        
-        if isSecureTextEntry, let currentText = text, !currentText.isEmpty {
-            deleteBackward()
-            insertText(currentText)
-        }
-        
-        return result
-    }
-}
+import SnapKit
 
 class PasswordViewController: UIViewController {
     
     var email: String? = nil
     private var nickname : String = ""
-
+    
     private func bindID() {
         explainLabel.text = "\(email ?? "")로 가입중"
     }
@@ -36,7 +23,7 @@ class PasswordViewController: UIViewController {
         label.textColor = .white
         label.textAlignment = .left
         label.numberOfLines = 2
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 23)
+        label.font = .head2
         return label
     }()
     
@@ -45,31 +32,31 @@ class PasswordViewController: UIViewController {
         label.textColor = UIColor.gray100
         label.textAlignment = .left
         label.numberOfLines = 2
-        label.font = UIFont(name: "Pretendard-Medium", size: 12)
+        label.font = .body1
         return label
     }()
     
     private let PWLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray100
-        label.font = UIFont(name: "Pretendard-Regular", size: 12)
+        label.font = .body2
         label.text = "영문, 숫자, 특수문자 포함 10글자 이상"
         return label
     }()
     
-    private let PWTextField: CustomSecureTextField = {
+    private lazy var passwordTextField: CustomSecureTextField = {
         let textField = CustomSecureTextField()
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 47))
-        textField.leftViewMode = .always
+        textField.addLeftPadding()
         textField.textAlignment = .left
         textField.placeholder = "비밀번호 입력"
         textField.setPlaceholder(color: .gray400)
-        textField.font = UIFont(name: "Pretendard-Regular", size: 12)
+        textField.font = .body2
         textField.backgroundColor = .gray600
         textField.textColor = .white
         textField.layer.cornerRadius = 5
         textField.tintColor = .watchaPink
         textField.isSecureTextEntry = true
+        textField.rightView = passwordRightView
         textField.rightViewMode = .never
         return textField
     }()
@@ -85,7 +72,7 @@ class PasswordViewController: UIViewController {
         let button = UIButton()
         button.setTitle("가입하기", for: .normal)
         button.setTitleColor(.gray200, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 18)
+        button.titleLabel?.font = .medium
         button.backgroundColor = .gray400
         button.layer.cornerRadius = 5
         button.isEnabled = false
@@ -126,16 +113,16 @@ class PasswordViewController: UIViewController {
                 attributes: [
                     .underlineStyle : NSUnderlineStyle.single.rawValue,
                     .foregroundColor: UIColor.gray100,
-                    .font: UIFont(name: "Pretendard-Regular", size: 12)!
+                    .font: UIFont.body2
                 ]
             ),for: .normal
         )
-        button.addTarget(self, action: #selector(BottomSheetTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(bottomSheetTapped), for: .touchUpInside)
         return button
     }()
     
     @objc
-    private func BottomSheetTapped() {
+    private func bottomSheetTapped() {
         let vc = BottomSheetViewController()
         vc.onComplete = { [weak self] nickname in
             self?.nickname = nickname
@@ -144,7 +131,7 @@ class PasswordViewController: UIViewController {
                 attributes: [
                     .underlineStyle: NSUnderlineStyle.single.rawValue,
                     .foregroundColor: UIColor.gray100,
-                    .font: UIFont(name: "Pretendard-Regular", size: 12)!
+                    .font: UIFont.body2
                 ]
             ), for: .normal)
         }
@@ -164,20 +151,21 @@ class PasswordViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         bindID()
+        setUI()
         setLayout()
         setTarget()
-        
-        PWTextField.rightView = passwordRightView
-        PWTextField.rightViewMode = .never
     }
     
-    private func setLayout() {
-        [titleLabel, explainLabel, PWTextField, nextButton, checkImage, PWLabel,sheetButton].forEach {
+    private func setUI(){
+        [titleLabel, explainLabel, passwordTextField, nextButton, checkImage, PWLabel,sheetButton].forEach {
             view.addSubview($0)
         }
+    }
+    private func setLayout() {
+        
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(152)
-            $0.leading.equalToSuperview().offset(30)
+            $0.top.equalToSuperview().inset(152)
+            $0.leading.equalToSuperview().inset(30)
             $0.width.equalTo(205)
             $0.height.equalTo(55)
         }
@@ -187,14 +175,14 @@ class PasswordViewController: UIViewController {
             $0.width.equalTo(272)
             $0.height.equalTo(30)
         }
-        PWTextField.snp.makeConstraints {
+        passwordTextField.snp.makeConstraints {
             $0.top.equalTo(explainLabel.snp.bottom).offset(14)
-            $0.leading.trailing.equalToSuperview().inset(31)
+            $0.horizontalEdges.equalToSuperview().inset(31)
             $0.height.equalTo(47)
         }
         checkImage.snp.makeConstraints{
-            $0.top.equalTo(PWTextField.snp.bottom).offset(13)
-            $0.leading.equalToSuperview().offset(35)
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(13)
+            $0.leading.equalToSuperview().inset(35)
             $0.width.height.equalTo(13)
         }
         PWLabel.snp.makeConstraints{
@@ -203,22 +191,22 @@ class PasswordViewController: UIViewController {
             $0.height.equalTo(47)
         }
         sheetButton.snp.makeConstraints{
-            $0.top.equalTo(PWTextField.snp.bottom).offset(54)
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(54)
             $0.centerX.equalToSuperview()
             $0.leading.width.equalTo(80)
             $0.height.equalTo(20)
         }
         nextButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(22)
+            $0.horizontalEdges.equalToSuperview().inset(22)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(26)
             $0.height.equalTo(56)
         }
     }
     
     private func setTarget() {
-        PWTextField.addTarget(self, action: #selector(textDidBegin(_:)), for: .editingDidBegin)
-        PWTextField.addTarget(self, action: #selector(textDidEnd(_:)), for: .editingDidEnd)
-        PWTextField.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textDidBegin(_:)), for: .editingDidBegin)
+        passwordTextField.addTarget(self, action: #selector(textDidEnd(_:)), for: .editingDidEnd)
+        passwordTextField.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
     }
     
     @objc
@@ -261,8 +249,8 @@ class PasswordViewController: UIViewController {
     
     @objc
     private func clearPasswordText() {
-        PWTextField.text = ""
-        PWTextField.rightViewMode = .never
+        passwordTextField.text = ""
+        passwordTextField.rightViewMode = .never
         updateCheckImage(isValid: false)
         nextButton.isEnabled = false
         nextButton.backgroundColor = .gray400
@@ -271,15 +259,15 @@ class PasswordViewController: UIViewController {
     
     @objc
     private func togglePW() {
-        PWTextField.isSecureTextEntry.toggle()
+        passwordTextField.isSecureTextEntry.toggle()
         
         toggleButton.setImage(
-            UIImage(named: PWTextField.isSecureTextEntry ? "eye-off" : "eye-on"),
+            UIImage(named: passwordTextField.isSecureTextEntry ? "eye-off" : "eye-on"),
             for: .normal
         )
         
-        if PWTextField.isFirstResponder {
-            _ = PWTextField.becomeFirstResponder()
+        if passwordTextField.isFirstResponder {
+            _ = passwordTextField.becomeFirstResponder()
         }
     }
     

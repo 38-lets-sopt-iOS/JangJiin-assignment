@@ -16,7 +16,7 @@ class WelcomeViewController: UIViewController {
         label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = 2
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 23)
+        label.font = .head2
         return label
     }()
     
@@ -30,7 +30,7 @@ class WelcomeViewController: UIViewController {
     private lazy var mainButton: UIButton = {
         let button = UIButton()
         button.setTitle("메인으로", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 18)
+        button.titleLabel?.font = .medium
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .watchaPink
         button.layer.cornerRadius = 14
@@ -38,21 +38,25 @@ class WelcomeViewController: UIViewController {
         button.addTarget(self, action: #selector(mainButtonTapped), for: .touchUpInside)
         return button
     }()
+    
     @objc
     private func mainButtonTapped(){
         navigationController?.popToRootViewController(animated: true)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
+        setUI()
         setLayout()
         bindNickname()
     }
     
+    private func setUI(){
+        [titleImage, welcomeLabel, mainButton].forEach {view.addSubview($0)}
+    }
+    
     private func setLayout() {
-        [titleImage, welcomeLabel, mainButton].forEach {
-            view.addSubview($0)
-        }
         titleImage.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(70)
             $0.centerX.equalToSuperview()
@@ -68,7 +72,7 @@ class WelcomeViewController: UIViewController {
         }
         
         mainButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(22)
+            $0.horizontalEdges.equalToSuperview().inset(22)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(26)
             $0.height.equalTo(58)
         }
