@@ -7,65 +7,49 @@
 import UIKit
 
 import SnapKit
+import Then
 
 class LoginViewController: UIViewController {
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        
-        label.text = "로그인/가입하려는\n이메일을 입력해주세요"
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.font = .head2
-        
-        return label
-    }()
+    private let titleLabel = UILabel().then {
+        $0.text = "로그인/가입하려는\n이메일을 입력해주세요"
+        $0.textColor = .white
+        $0.textAlignment = .left
+        $0.numberOfLines = 2
+        $0.font = .head2
+    }
     
-    private let explainLabel: UILabel = {
-        let label = UILabel()
-        label.text =
-        "결제 등 중요 정보 알림, 로그인, 비밀번호 찾기에 필요해요.\n사용 중인 이메일을 입력하세요"
-        label.textColor = .gray100
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.font = .body1
-        
-        return label
-    }()
+    private let explainLabel = UILabel().then {
+        $0.text = "결제 등 중요 정보 알림, 로그인, 비밀번호 찾기에 필요해요.\n사용 중인 이메일을 입력하세요"
+        $0.textColor = .gray100
+        $0.textAlignment = .left
+        $0.numberOfLines = 2
+        $0.font = .body1
+    }
     
-    private let emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.addLeftPadding()
-        textField.textAlignment = .left
-        textField.placeholder = "email@address.com"
-        textField.setPlaceholder(color: .gray400)
-        textField.font = .body2
-        textField.backgroundColor = .gray600
-        textField.textColor = .white
-        textField.layer.cornerRadius = 5
-        textField.tintColor = .watchaPink
-        
-        textField.rightView = nil
-        textField.rightViewMode = .never
-        
-        return textField
-    }()
+    private let emailTextField = UITextField().then {
+        $0.addLeftPadding()
+        $0.textAlignment = .left
+        $0.placeholder = "email@address.com"
+        $0.setPlaceholder(color: .gray400)
+        $0.font = .body2
+        $0.backgroundColor = .gray600
+        $0.textColor = .white
+        $0.layer.cornerRadius = 5
+        $0.tintColor = .watchaPink
+        $0.rightView = nil
+        $0.rightViewMode = .never
+    }
     
-    private lazy var nextButton: UIButton = {
-        let button = UIButton()
-        
-        button.setTitle("다음", for: .normal)
-        button.setTitleColor(.gray200, for: .normal)
-        button.titleLabel?.font = .medium
-        button.backgroundColor = .gray400
-        button.layer.cornerRadius = 5
-        button.isEnabled = false
-        
-        button.addTarget(self, action: #selector(nextButtonDidtapped), for: .touchUpInside)
-        
-        return button
-    }()
+    private lazy var nextButton = UIButton().then {
+        $0.setTitle("다음", for: .normal)
+        $0.setTitleColor(.gray200, for: .normal)
+        $0.titleLabel?.font = .medium
+        $0.backgroundColor = .gray400
+        $0.layer.cornerRadius = 10
+        $0.isEnabled = false
+        $0.addTarget(self, action: #selector(nextButtonDidtapped), for: .touchUpInside)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

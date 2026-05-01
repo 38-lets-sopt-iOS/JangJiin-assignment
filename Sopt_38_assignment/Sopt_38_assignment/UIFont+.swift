@@ -36,6 +36,6 @@ extension UIFont{
     static let medium = pretendard(size: 18, weight: .medium)
     static let body1 = pretendard(size: 12, weight: .medium)
     static let body2 = pretendard(size: 12, weight: .regular)
-    static let cap2 = pretendard(size: 12, weight: .light)
+    static let cap1 = pretendard(size: 12, weight: .light)
     
 }

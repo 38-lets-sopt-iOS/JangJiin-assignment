@@ -5,40 +5,36 @@
 //  Created by 장지인 on 4/24/26.
 //
 import UIKit
+
 import SnapKit
+import Then
 
 class BottomSheetViewController: UIViewController {
     var onComplete: ((String) -> Void)?
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "닉네임을 입력해주세요"
-        label.textColor = .white
-        label.font = .subhead1
-        return label
-    }()
+    private let titleLabel = UILabel().then {
+        $0.text = "닉네임을 입력해주세요"
+        $0.textColor = .white
+        $0.font = .subhead1
+    }
     
-    private let nickNameTextField: UITextField = {
-        let textField = UITextField()
-        textField.addLeftPadding()
-        textField.placeholder = "닉네임"
-        textField.setPlaceholder(color: .gray400)
-        textField.textColor = .white
-        textField.font = .body2
-        textField.backgroundColor = .gray600
-        textField.layer.cornerRadius = 10
-        return textField
-    }()
+    private let nickNameTextField = UITextField().then {
+        $0.addLeftPadding()
+        $0.placeholder = "닉네임"
+        $0.setPlaceholder(color: .gray400)
+        $0.textColor = .white
+        $0.font = .body2
+        $0.backgroundColor = .gray600
+        $0.layer.cornerRadius = 10
+    }
     
-    private lazy var completeButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("완료", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .subhead1
-        button.backgroundColor = .gray600
-        button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(dismissSheet), for: .touchUpInside)
-        return button
-    }()
+    private lazy var completeButton = UIButton().then {
+        $0.setTitle("완료", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.titleLabel?.font = .subhead1
+        $0.backgroundColor = .gray600
+        $0.layer.cornerRadius = 10
+        $0.addTarget(self, action: #selector(dismissSheet), for: .touchUpInside)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

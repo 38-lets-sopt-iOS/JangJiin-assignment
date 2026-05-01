@@ -54,8 +54,7 @@ extension UITextField {
             frame: CGRect(x: 0, y: 0, width: 64, height: 47)
         )
         
-        container.addSubview(clearButton)
-        container.addSubview(checkImageView)
+        [clearButton,checkImageView].forEach{container.addSubview($0)}
         
         self.rightView = container
         self.rightViewMode = mode

@@ -7,6 +7,7 @@
 import UIKit
 
 import SnapKit
+import Then
 
 class PasswordViewController: UIViewController {
     
@@ -17,97 +18,78 @@ class PasswordViewController: UIViewController {
         explainLabel.text = "\(email ?? "")로 가입중"
     }
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "사용할 비밀번호를\n입력해주세요"
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.font = .head2
-        return label
-    }()
+    private let titleLabel = UILabel().then {
+        $0.text = "사용할 비밀번호를\n입력해주세요"
+        $0.textColor = .white
+        $0.textAlignment = .left
+        $0.numberOfLines = 2
+        $0.font = .head2
+    }
     
-    private let explainLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor.gray100
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.font = .body1
-        return label
-    }()
+    private let explainLabel = UILabel().then {
+        $0.textColor = UIColor.gray100
+        $0.textAlignment = .left
+        $0.numberOfLines = 2
+        $0.font = .body1
+    }
     
-    private let PWLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .gray100
-        label.font = .body2
-        label.text = "영문, 숫자, 특수문자 포함 10글자 이상"
-        return label
-    }()
+    private let PWLabel = UILabel().then {
+        $0.textColor = .gray100
+        $0.font = .body2
+        $0.text = "영문, 숫자, 특수문자 포함 10글자 이상"
+    }
     
-    private lazy var passwordTextField: CustomSecureTextField = {
-        let textField = CustomSecureTextField()
-        textField.addLeftPadding()
-        textField.textAlignment = .left
-        textField.placeholder = "비밀번호 입력"
-        textField.setPlaceholder(color: .gray400)
-        textField.font = .body2
-        textField.backgroundColor = .gray600
-        textField.textColor = .white
-        textField.layer.cornerRadius = 5
-        textField.tintColor = .watchaPink
-        textField.isSecureTextEntry = true
-        textField.rightView = passwordRightView
-        textField.rightViewMode = .never
-        return textField
-    }()
+    private lazy var passwordTextField = CustomSecureTextField().then {
+        $0.addLeftPadding()
+        $0.textAlignment = .left
+        $0.placeholder = "비밀번호 입력"
+        $0.setPlaceholder(color: .gray400)
+        $0.font = .body2
+        $0.backgroundColor = .gray600
+        $0.textColor = .white
+        $0.layer.cornerRadius = 5
+        $0.tintColor = .watchaPink
+        $0.isSecureTextEntry = true
+        $0.rightView = passwordRightView
+        $0.rightViewMode = .never
+    }
     
-    private let checkImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "enable-off")
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    private let checkImage = UIImageView().then {
+        $0.image = UIImage(named: "enable-off")
+        $0.contentMode = .scaleAspectFit
+    }
     
-    private lazy var nextButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("가입하기", for: .normal)
-        button.setTitleColor(.gray200, for: .normal)
-        button.titleLabel?.font = .medium
-        button.backgroundColor = .gray400
-        button.layer.cornerRadius = 5
-        button.isEnabled = false
-        button.addTarget(self, action: #selector(nextButtonDidTapped), for: .touchUpInside)
-        return button
-    }()
+    private lazy var nextButton = UIButton().then {
+        $0.setTitle("가입하기", for: .normal)
+        $0.setTitleColor(.gray200, for: .normal)
+        $0.titleLabel?.font = .medium
+        $0.backgroundColor = .gray400
+        $0.layer.cornerRadius = 10
+        $0.isEnabled = false
+        $0.addTarget(self, action: #selector(nextButtonDidTapped), for: .touchUpInside)
+    }
     
-    private lazy var clearButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.frame = CGRect(x: 0, y: 12, width: 24, height: 24)
-        button.setImage(UIImage(named: "clear"), for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(clearPasswordText), for: .touchUpInside)
-        return button
-    }()
+    private lazy var clearButton = UIButton().then {
+        $0.frame = CGRect(x: 0, y: 12, width: 24, height: 24)
+        $0.setImage(UIImage(named: "clear"), for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFit
+        $0.addTarget(self, action: #selector(clearPasswordText), for: .touchUpInside)
+    }
     
-    private lazy var toggleButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.frame = CGRect(x: 32, y: 12, width: 24, height: 24)
-        button.setImage(UIImage(named: "eye-off"), for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(togglePW), for: .touchUpInside)
-        return button
-    }()
+    private lazy var toggleButton = UIButton(type: .custom).then {
+        $0.frame = CGRect(x: 32, y: 12, width: 24, height: 24)
+        $0.setImage(UIImage(named: "eye-off"), for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFit
+        $0.addTarget(self, action: #selector(togglePW), for: .touchUpInside)
+    }
     
-    private lazy var passwordRightView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 64, height: 47))
-        view.addSubview(clearButton)
-        view.addSubview(toggleButton)
-        return view
-    }()
+    private lazy var passwordRightView = UIView(frame: CGRect(x: 0, y: 0, width: 64, height: 47)).then {
+        $0.addSubview(clearButton)
+        $0.addSubview(toggleButton)
+    }
     
-    private lazy var sheetButton: UIButton = {
-        let button = UIButton()
-        button.setAttributedTitle(
+    private lazy var sheetButton = UIButton().then {
+        $0.setAttributedTitle(
             NSAttributedString(
                 string : "닉네임 설정",
                 attributes: [
@@ -117,9 +99,8 @@ class PasswordViewController: UIViewController {
                 ]
             ),for: .normal
         )
-        button.addTarget(self, action: #selector(bottomSheetTapped), for: .touchUpInside)
-        return button
-    }()
+        $0.addTarget(self, action: #selector(bottomSheetTapped), for: .touchUpInside)
+    }
     
     @objc
     private func bottomSheetTapped() {
