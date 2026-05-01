@@ -21,7 +21,7 @@ class WelcomeViewController: UIViewController {
     }
     
     private let titleImage = UIImageView().then {
-        $0.image = UIImage(named: "watcha")
+        $0.image = .watcha
         $0.contentMode = .scaleAspectFit
     }
     
