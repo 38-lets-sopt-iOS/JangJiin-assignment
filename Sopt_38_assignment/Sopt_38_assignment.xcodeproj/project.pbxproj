@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4421F332FA3CE800027C40E /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = D4421F322FA3CE800027C40E /* Then */; };
 		D46588F82F9AD1CF007C1670 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D46588F72F9AD1CF007C1670 /* SnapKit */; };
 /* End PBXBuildFile section */
 
@@ -24,11 +25,22 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		D4421F402FA46FD40027C40E /* Exceptions for "Sopt_38_assignment" folder in "Copy Bundle Resources" phase from "Sopt_38_assignment" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = D46B32DC2F95017000A2BA82 /* Resources */;
+			membershipExceptions = (
+				ScrollView/WatgorithmSectionView.swift,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D46B32E02F95017000A2BA82 /* Sopt_38_assignment */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				D46B32F02F95017300A2BA82 /* Exceptions for "Sopt_38_assignment" folder in "Sopt_38_assignment" target */,
+				D4421F402FA46FD40027C40E /* Exceptions for "Sopt_38_assignment" folder in "Copy Bundle Resources" phase from "Sopt_38_assignment" target */,
 			);
 			path = Sopt_38_assignment;
 			sourceTree = "<group>";
@@ -41,6 +53,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D46588F82F9AD1CF007C1670 /* SnapKit in Frameworks */,
+				D4421F332FA3CE800027C40E /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +97,7 @@
 			name = Sopt_38_assignment;
 			packageProductDependencies = (
 				D46588F72F9AD1CF007C1670 /* SnapKit */,
+				D4421F322FA3CE800027C40E /* Then */,
 			);
 			productName = Sopt_38_assignment;
 			productReference = D46B32DE2F95017000A2BA82 /* Sopt_38_assignment.app */;
@@ -115,6 +129,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				D46588F62F9AD1CF007C1670 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				D4421F312FA3CE800027C40E /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D46B32DF2F95017000A2BA82 /* Products */;
@@ -350,6 +365,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D4421F312FA3CE800027C40E /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		D46588F62F9AD1CF007C1670 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -361,6 +384,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D4421F322FA3CE800027C40E /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4421F312FA3CE800027C40E /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
 		D46588F72F9AD1CF007C1670 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D46588F62F9AD1CF007C1670 /* XCRemoteSwiftPackageReference "SnapKit" */;

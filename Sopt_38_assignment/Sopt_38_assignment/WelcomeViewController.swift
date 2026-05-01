@@ -5,43 +5,40 @@
 //  Created by 장지인 on 4/24/26.
 //
 import UIKit
+
 import SnapKit
+import Then
 
 class WelcomeViewController: UIViewController {
     
     var nickname: String = ""
     
-    private let welcomeLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.textAlignment = .center
-        label.numberOfLines = 2
-        label.font = .head2
-        return label
-    }()
+    private let welcomeLabel = UILabel().then {
+        $0.textColor = .white
+        $0.textAlignment = .center
+        $0.numberOfLines = 2
+        $0.font = .head2
+    }
     
-    private let titleImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "watcha")
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    private let titleImage = UIImageView().then {
+        $0.image = UIImage(named: "watcha")
+        $0.contentMode = .scaleAspectFit
+    }
     
-    private lazy var mainButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("메인으로", for: .normal)
-        button.titleLabel?.font = .medium
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .watchaPink
-        button.layer.cornerRadius = 14
-        
-        button.addTarget(self, action: #selector(mainButtonTapped), for: .touchUpInside)
-        return button
-    }()
+    private lazy var mainButton = UIButton().then {
+        $0.setTitle("메인으로", for: .normal)
+        $0.titleLabel?.font = .medium
+        $0.setTitleColor(.white, for: .normal)
+        $0.backgroundColor = .watchaPink
+        $0.layer.cornerRadius = 10
+        $0.addTarget(self, action: #selector(mainButtonTapped), for: .touchUpInside)
+    }
     
     @objc
     private func mainButtonTapped(){
-        navigationController?.popToRootViewController(animated: true)
+        let tabBarController = MainTabBarController()
+        tabBarController.navigationItem.hidesBackButton = true
+        navigationController?.pushViewController(tabBarController,animated: true)
     }
     
     override func viewDidLoad() {
