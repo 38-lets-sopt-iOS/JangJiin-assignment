@@ -17,6 +17,12 @@ final class PartySectionView: UIView{
         $0.textColor = .white
     }
     
+    private let moreLabel = UILabel().then{
+        $0.text = "더보기"
+        $0.font = .cap1
+        $0.textColor = .gray100
+    }
+    
     private let scrollView = UIScrollView().then{
         $0.showsVerticalScrollIndicator = false
         $0.showsVerticalScrollIndicator = false
@@ -29,7 +35,8 @@ final class PartySectionView: UIView{
     
     override init(frame: CGRect){
         super.init(frame: frame)
-        configure()
+        setUI()
+        setLayout()
         bind()
     }
     
@@ -37,14 +44,17 @@ final class PartySectionView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure(){
-        [titleLabel,scrollView].forEach{addSubview($0)}
+    private func setUI(){
+        [titleLabel,scrollView,moreLabel].forEach{addSubview($0)}
         scrollView.addSubview(stackView)
-        
+    }
+    
+    private func setLayout(){
         titleLabel.snp.makeConstraints{
             $0.top.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(24)
         }
+        
         scrollView.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(15)
             $0.horizontalEdges.equalToSuperview().inset(24)
@@ -55,6 +65,11 @@ final class PartySectionView: UIView{
         stackView.snp.makeConstraints{
             $0.edges.equalTo(scrollView.contentLayoutGuide)
             $0.height.equalTo(scrollView.frameLayoutGuide)
+        }
+        
+        moreLabel.snp.makeConstraints{
+            $0.top.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(22)
         }
     }
     private func bind(){

@@ -17,11 +17,18 @@ final class UpcomingSectionView: UIView{
         $0.textColor = .white
     }
     
+    private let moreLabel = UILabel().then{
+        $0.text = "더보기"
+        $0.font = .cap1
+        $0.textColor = .gray100
+    }
+    
     private let posterScrollView = SubscribeScrollView(sectionType: .smallPoster)
     
     override init(frame: CGRect){
         super.init(frame: frame)
-        configure()
+        setUI()
+        setLayout()
         bind()
     }
     
@@ -29,11 +36,13 @@ final class UpcomingSectionView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure(){
-        [titleLabel,posterScrollView].forEach{
+    private func setUI(){
+        [titleLabel,posterScrollView,moreLabel].forEach{
             addSubview($0)
         }
-        
+    }
+    
+    private func setLayout(){
         titleLabel.snp.makeConstraints{
             $0.top.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(24)
@@ -44,7 +53,13 @@ final class UpcomingSectionView: UIView{
             $0.horizontalEdges.equalToSuperview().inset(24)
             $0.bottom.equalToSuperview()
         }
+        
+        moreLabel.snp.makeConstraints{
+            $0.top.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(22)
+        }
     }
+    
     private func bind(){
         posterScrollView.dataSource = Mocks.getUpcomingDataSource()
     }

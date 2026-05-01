@@ -21,11 +21,18 @@ final class WatgorithmSectionView: UIView{
         $0.textColor = .gray100
     }
     
+    private let moreLabel = UILabel().then{
+        $0.text = "더보기"
+        $0.font = .cap1
+        $0.textColor = .gray100
+    }
+    
     private let posterScrollView = SubscribeScrollView(sectionType: .smallPoster)
     
     override init(frame: CGRect){
         super.init(frame: frame)
-        configure()
+        setUI()
+        setLayout()
         bind()
     }
     
@@ -33,26 +40,34 @@ final class WatgorithmSectionView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure(){
-        [titleImage,posterScrollView,subtitleLabel].forEach{
+    private func setUI(){
+        [titleImage,posterScrollView,subtitleLabel,moreLabel].forEach{
             addSubview($0)
         }
-        
+    }
+    private func setLayout(){
         titleImage.snp.makeConstraints{
             $0.top.equalToSuperview()
             $0.width.equalTo(79)
             $0.height.equalTo(25.5)
             $0.leading.equalToSuperview().inset(24)
         }
+        
         subtitleLabel.snp.makeConstraints{
             $0.top.equalTo(titleImage.snp.bottom).offset(3)
             $0.horizontalEdges.equalToSuperview().inset(24)
         }
+        
         posterScrollView.snp.makeConstraints{
             $0.top.equalTo(subtitleLabel.snp.bottom).offset(15)
             $0.height.equalTo(PosterSectionType.smallPoster.itemSize.height)
             $0.horizontalEdges.equalToSuperview().inset(14)
             $0.bottom.equalToSuperview()
+        }
+        
+        moreLabel.snp.makeConstraints{
+            $0.top.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(22)
         }
         
     }
