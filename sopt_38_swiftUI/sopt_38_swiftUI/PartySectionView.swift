@@ -1,5 +1,5 @@
 //
-//  NewSectionView.swift
+//  PartySectionView.swift
 //  sopt_38_swiftUI
 //
 //  Created by 장지인 on 5/29/26.
@@ -8,7 +8,7 @@ import SwiftUI
 
 struct PartySectionView: View {
     var body: some View {
-        VStack(spacing: 15) {
+        VStack {
             HStack {
                 Text("왓챠 파티")
                     .frame(maxWidth: .infinity, alignment: .leading)

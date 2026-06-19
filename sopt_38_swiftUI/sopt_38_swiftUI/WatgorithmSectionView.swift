@@ -7,6 +7,16 @@
 import SwiftUI
 
 struct WatgorithmSectionView: View {
+    
+    private let imageList: [ImageResource] = [
+        .image1, .image9, .image12, .image1, .image9,
+        .image12, .image1, .image9, .image12, .image1
+    ]
+    
+    private let rows = [
+        GridItem(.fixed(153))
+    ]
+    
     var body: some View {
         VStack(spacing: 15) {
             HStack {
@@ -30,56 +40,13 @@ struct WatgorithmSectionView: View {
             .padding(.horizontal, 22)
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 15) {
-                    Image(.image1)
-                        .resizable()
-                        .frame(width: 103, height: 153)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
-                    Image(.image9)
-                        .resizable()
-                        .frame(width: 103, height: 153)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
-                    Image(.image12)
-                        .resizable()
-                        .frame(width: 103, height: 153)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
-                    Image(.image1)
-                        .resizable()
-                        .frame(width: 103, height: 153)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
-                    Image(.image9)
-                        .resizable()
-                        .frame(width: 103, height: 153)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
-                    Image(.image12)
-                        .resizable()
-                        .frame(width: 103, height: 153)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
-                    Image(.image1)
-                        .resizable()
-                        .frame(width: 103, height: 153)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
-                    Image(.image9)
-                        .resizable()
-                        .frame(width: 103, height: 153)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
-                    Image(.image12)
-                        .resizable()
-                        .frame(width: 103, height: 153)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
-                    Image(.image1)
-                        .resizable()
-                        .frame(width: 103, height: 153)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                LazyHGrid(rows: rows, spacing: 15) {
+                    ForEach(imageList.indices, id: \.self) { index in
+                        Image(imageList[index])
+                            .resizable()
+                            .frame(width: 103, height: 153)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
                 }
             }
         }

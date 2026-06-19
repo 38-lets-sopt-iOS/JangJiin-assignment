@@ -11,5 +11,7 @@
 		<string>Pretendard-SemiBold.otf</string>
 		<string>Pretendard-Light.otf</string>
 	</array>
+	<key>UIDesignRequiresCompatibility</key>
+	<true/>
 </dict>
 </plist>

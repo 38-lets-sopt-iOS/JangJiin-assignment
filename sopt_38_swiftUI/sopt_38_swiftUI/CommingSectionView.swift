@@ -1,5 +1,5 @@
 //
-//  NewSectionView.swift
+//  CommingSectionView.swift
 //  sopt_38_swiftUI
 //
 //  Created by 장지인 on 5/29/26.
